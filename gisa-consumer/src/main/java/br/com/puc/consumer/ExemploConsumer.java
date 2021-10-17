@@ -22,7 +22,7 @@ public class ExemploConsumer {
 	
 	@KafkaListener(topics = "${kafka-consumer.topic}")
 	public void consumer(ConsumerRecord<String, String> payload) {
-		System.out.println("Consumer recebendo payload. Value="+payload.value());
+		log.info("Consumer recebendo payload. Value="+payload.value());
 		
 		Exemplo exemplo = convertMessage(payload.value());
 		java.util.Optional<br.com.puc.entity.Exemplo> exemploOld = exemploRepository.findById(exemplo.getId());
@@ -31,7 +31,7 @@ public class ExemploConsumer {
 			exemplo.setId(exemploLast.getId()+1);
 		}
 		exemploRepository.save(exemplo);
-		System.out.println("Registro processado. Id="+exemplo);
+		log.info("Registro processado. Id="+exemplo);
 	}
 
 	private Exemplo convertMessage(String item) {
@@ -46,7 +46,7 @@ public class ExemploConsumer {
 			return mapper.readValue(exemplo, Exemplo.class);
 			
 		}catch(Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return null;
 		}
 	}

@@ -10,7 +10,7 @@ docker ps -a
 docker exec -it <PID> /bin/bash
 
 # Comando para executar o sqoop import(Dentro do container de sqoop)
-sqoop import --connect jdbc:mysql://mysqlsrv/saf --table Exemplo --username root --password mysql@123 -m 1
+sqoop import --connect jdbc:mysql://mysqlsrv/saf --table Exemplo --username root --password mysql@123 --target-dir /target/ --m 1
 
 # -----------------------------------------------------
 # Comandos auxiliares - (Dentro do container kafka)

@@ -58,7 +58,7 @@ public class BatchConfig {
 		return new JdbcCursorItemReaderBuilder<Exemplo>()
 				.dataSource(dataSource)
 				.saveState(false)
-				.sql("Select * from Exemplo")
+				.sql("SELECT * FROM Exemplo WHERE data >= DATE_SUB(NOW(),INTERVAL 1 HOUR)")
 				.rowMapper(mapper())
 				.build();
 	}
@@ -72,8 +72,7 @@ public class BatchConfig {
 						.nome(rs.getString("nome"))
 						.idade(rs.getInt("idade"))
 						.data(rs.getDate("data"))
-						.valor(rs.getDouble("valor")).build();
-						
+						.valor(rs.getDouble("valor")).build();	
 			}
 		};
 	}
